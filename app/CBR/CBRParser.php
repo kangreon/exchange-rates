@@ -28,12 +28,13 @@ class CBRParser
         $list = Array();
         for($i = 0; $i < $xml->count(); $i++) {
             $date = (string)$xml->Record[$i]->attributes()->Date;
+            $dateFormat = Carbon::createFromFormat('d.m.Y', $date);
 
             // Exchange rate
             $value = (string)$xml->Record[$i]->Value;
             $valueFloat = (float)str_replace(',', '.', $value);
 
-            $list[] = Array('date' => $date, 'value' => $valueFloat);
+            $list[] = Array('date' => $dateFormat, 'value' => $valueFloat);
         }
 
         return $list;
